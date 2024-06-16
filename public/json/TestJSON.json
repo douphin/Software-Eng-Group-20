@@ -6,13 +6,15 @@
             "ItemName" : "Complete JSON",
             "StartDate" : "05/30/2024 12:00:00 PM",
             "EndDate" : "05/31/2024 12:00:00 PM",
-            "IsCompleted" : false
+            "IsCompleted" : false,
+            "Priority" : 3
         },
         {
             "ItemName" : "Complete DB setup",
             "StartDate" : "05/30/2024 12:00:00 PM",
             "EndDate" : "05/31/2024 12:00:00 PM",
-            "IsCompleted" : false
+            "IsCompleted" : false,
+            "Priority" : 3
         }
     ]
 }
