@@ -1,3 +1,26 @@
+<link rel="stylesheet" href="css/Index.css">
+
+
 <div>
-    Hello word
+    <div class="center header">
+       BearcatPlanner
+    </div>
+    <div id="TestDiv"></div>
 </div>
+
+<div class="center">
+    <form id="LoginForm" onsubmit=FindJSON() action="javascript:void(0);" method="post">
+        <label for="Username">Username:</label>
+        <input type="text" id="Username" name="Username"><br><br>
+        <label for="Password">Password:</label>
+        <input type="text" id="Password" name="Password"><br><br>
+        <input type="submit" value="Login">
+    </form>
+
+    <form id="SendHome" action="\HomePage.html" target="_self" class="hidden" method="post">
+        <input type="text" id="profileJSON" name="profileJSON">
+        <input type="submit">
+    </form>
+
+</div>
+<script src="js/Index.js"></script>

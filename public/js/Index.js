@@ -1,0 +1,24 @@
+function FindJSON(){
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/login"); 
+    //xhr.onload = function(event){ 
+    //    document.getElementById("TestDiv").innerHTML = "hey there"
+    //    //alert("Success, server responded with: " + event.target.response); // raw response
+    //}; 
+    // or onerror, onabort
+    var formData = new FormData(document.getElementById("LoginForm"));
+    
+    xhr.send(formData);
+    xhr.onload = function(event){
+        //document.getElementById("TestDiv").innerHTML = "hey there";
+        //console.log(xhr.responseText);
+        //window.location.replace("/Weather.html");
+        //document.getElementById("TestDiv").innerHTML = xhr.responseText;
+        document.getElementById("profileJSON").textContent = xhr.responseText;
+        document.getElementById("SendHome").su
+    }
+    
+    return false;
+}
+

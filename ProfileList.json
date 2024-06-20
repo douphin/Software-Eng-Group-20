@@ -1,0 +1,9 @@
+{
+    "Profiles" : [
+        {
+            "Username" : "user1",
+            "Password" : "pass1",
+            "ProfileName" : "Test-Profile"
+        }
+    ]
+}
