@@ -1,3 +1,5 @@
+
+
 function FindJSON(){
     
     var xhr = new XMLHttpRequest();
@@ -15,8 +17,16 @@ function FindJSON(){
         //console.log(xhr.responseText);
         //window.location.replace("/Weather.html");
         //document.getElementById("TestDiv").innerHTML = xhr.responseText;
-        document.getElementById("profileJSON").textContent = xhr.responseText;
-        document.getElementById("SendHome").su
+        //document.getElementById("profileJSON").textContent = xhr.responseText;
+        //document.getElementById("SendHome").su
+        if (xhr.responseText == "NoProfile"){
+            document.getElementById("TestDiv").innerHTML = "Username or Password is incorrect";
+        }
+        else{
+            sessionStorage.removeItem('profileJSON');
+            sessionStorage.setItem('profileJSON', xhr.responseText);
+            window.location.replace("/HomePage");
+        }
     }
     
     return false;

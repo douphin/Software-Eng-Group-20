@@ -7,14 +7,14 @@ var multiparty = require('multiparty');
 
 var app = express();
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/src/public'));
 
 app.use(
   express.static(path.join(__dirname, "node_modules/bootstrap/dist/"))
 );
 
 app.get('/', function(req, res){
-  res.sendfile('Index.html', { root: __dirname + "/public" } );
+  res.sendFile('Index.html', { root: __dirname + "/src" } );
 });
 
 
@@ -42,7 +42,21 @@ function GetProfileJSON(profileName) {
 
 
 
+app.get("/HomePage", function(req, res){
+  res.sendFile('HomePage.html', { root: __dirname + "/src" } );
+})
 
+app.get("/Calendar", function(req, res){
+  res.sendFile('Calendar.html', { root: __dirname + "/src" } );
+})
+
+app.get("/Weather", function(req, res){
+  res.sendFile('Weather.html', { root: __dirname + "/src" } );
+})
+
+app.get("/NewProfile", function(req, res){
+  res.sendFile('NewProfile.html', { root: __dirname + "/src" } );
+})
 
 
 app.post("/login", function(req, res){
@@ -61,7 +75,6 @@ app.post("/login", function(req, res){
     var user = fields.Username;
     var pass = fields.Password;
 
-
     GetProfiles().then(function (v) {
       var profileFound = false;
       v.Profiles.forEach(element => {
@@ -76,12 +89,12 @@ app.post("/login", function(req, res){
 
       });
       if (!profileFound){
-        res.send("Nope");
+        res.send("NoProfile");
       }
 
     })
 
-
+    return;
   })
 
   //res.send('Hey');
