@@ -26,6 +26,7 @@ function FindJSON(){
             sessionStorage.removeItem('profileJSON');
             sessionStorage.setItem('profileJSON', xhr.responseText);
             window.location.replace("/HomePage");
+            //var apikey = 
         }
     }
     
