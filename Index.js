@@ -3,7 +3,7 @@ var url = require('url');
 var path = require('path');
 var express = require('express');
 var multiparty = require('multiparty');
-
+require('dotenv').config({ path: "./secrets.env" });
 
 var app = express();
 
@@ -18,7 +18,7 @@ app.get('/', function(req, res){
 });
 
 
-
+var apikey = process.env.API_KEY_TOMORROW_WEATHER;
 
 function GetProfiles() {
   return new Promise(function (resolve, reject) {
