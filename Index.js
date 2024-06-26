@@ -41,6 +41,17 @@ function GetProfileJSON(profileName) {
 }
 
 
+function AddProfile(){
+  return new Promise(function (resolve, reject) {
+    fs.readFile('ProfileList.json', 'utf8', function (err, data) {
+      if (err) {console.log(err); throw err; }
+      var obj2 = JSON.parse(data);
+      resolve(obj2);
+    });
+  });
+}
+
+
 
 app.get("/HomePage", function(req, res){
   res.sendFile('HomePage.html', { root: __dirname + "/src" } );
@@ -57,6 +68,37 @@ app.get("/Weather", function(req, res){
 app.get("/NewProfile", function(req, res){
   res.sendFile('NewProfile.html', { root: __dirname + "/src" } );
 })
+
+
+app.post("/addprofile", function(req,res){
+
+  var form = new multiparty.Form();
+  form.parse(req, function(err, fields, files){
+    
+
+    GetProfiles().then(function (v) {
+      var user = String(fields.Username);
+      var pass = String(fields.Password1);
+
+      var profileData = {
+        Username : user,
+        Password : pass,
+      }
+      v.Profiles.push(profileData);
+      let newJSON = JSON.stringify(v, undefined, 4);
+      fs.writeFile('ProfileList.json', newJSON, function(err){return;} );
+
+      // TODO: Make new JSON file for new profile
+    })
+
+  
+
+  })
+})
+
+function cbFunc(){
+  console.log("hey");
+}
 
 
 app.post("/login", function(req, res){
@@ -80,7 +122,7 @@ app.post("/login", function(req, res){
       v.Profiles.forEach(element => {
         if (element.Username == user && element.Password == pass){
           
-          GetProfileJSON(element.ProfileName).then(function(w){
+          GetProfileJSON(element.Username).then(function(w){
             res.send(w);
           })
           //res.send(v);
@@ -102,7 +144,7 @@ app.post("/login", function(req, res){
 
 
 
-app.listen(8080)
+app.listen(8081)
 
   //var qdata = q.query;
   //console.log(qdata.csv);

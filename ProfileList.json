@@ -1,9 +1,12 @@
 {
-    "Profiles" : [
+    "Profiles": [
         {
-            "Username" : "user1",
-            "Password" : "pass1",
-            "ProfileName" : "Test-Profile"
+            "Username": "Test-Profile",
+            "Password": "pass1"
+        },
+        {
+            "Username": "tp1",
+            "Password": "pass2"
         }
     ]
 }
