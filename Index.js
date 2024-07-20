@@ -41,12 +41,12 @@ function GetProfileJSON(profileName) {
 }
 
 
-function AddProfile(){
+function CheckUserAvailable(profileName){
   return new Promise(function (resolve, reject) {
-    fs.readFile('ProfileList.json', 'utf8', function (err, data) {
-      if (err) {console.log(err); throw err; }
-      var obj2 = JSON.parse(data);
-      resolve(obj2);
+    fs.readFile('profileJSONs\\'+profileName +'.json', 'utf8', function (err, data) {
+      if (err) {resolve(false); }
+
+      resolve(true);
     });
   });
 }
@@ -69,6 +69,20 @@ app.get("/NewProfile", function(req, res){
   res.sendFile('NewProfile.html', { root: __dirname + "/src" } );
 })
 
+app.post("/CheckUser", function(req,res){
+  var form = new multiparty.Form();
+  form.parse(req, function(err, fields, files){
+    var user = String(fields.Username);
+    fs.readFile('profileJSONs\\'+user +'.json', 'utf8', function (err, data) {
+      if (err) {console.log("uhh"); res.send(false); }
+      else 
+      {
+        console.log("err");
+        res.send(true);
+      }
+    });
+  })
+})
 
 app.post("/addprofile", function(req,res){
 
@@ -88,7 +102,21 @@ app.post("/addprofile", function(req,res){
       let newJSON = JSON.stringify(v, undefined, 4);
       fs.writeFile('ProfileList.json', newJSON, function(err){return;} );
 
-      // TODO: Make new JSON file for new profile
+      var newProf = {
+        ProfileName : user,
+        TodoItems : []
+      }
+
+      let newProfJSON = JSON.stringify(newProf, undefined, 4);
+
+      fs.writeFile('profileJSONs/' + user + '.json', newProfJSON, function(err){
+        //GetProfileJSON(user).then(function (w){
+        //  res.send(w);
+        //})
+        return;
+      } );
+
+      
     })
 
   
@@ -96,9 +124,6 @@ app.post("/addprofile", function(req,res){
   })
 })
 
-function cbFunc(){
-  console.log("hey");
-}
 
 
 app.post("/login", function(req, res){

@@ -11,11 +11,11 @@
 <div class="center">
     <form id="LoginForm" onsubmit=AddProfile() action="javascript:void(0);" method="post">
         <label for="Username">Username:</label>
-        <input type="text" id="Username" name="Username"><br><br>
+        <input type="text" id="Username" name="Username" oninput=CheckUser()><br><br>
         <label for="Password1">Password:</label>
-        <input type="text" id="Password1" name="Password1"><br><br>
+        <input type="text" id="Password1" name="Password1" oninput=CheckPass()><br><br>
         <label for="Password2">Retype Password:</label>
-        <input type="text" id="Password2" name="Password2"><br><br>
+        <input type="text" id="Password2" name="Password2" oninput=CheckPass()><br><br>
         <input type="submit" value="Create">
     </form>
 
