@@ -1,9 +1,13 @@
 var fs = require('fs');
 var url = require('url');
 var path = require('path');
+var https = require('https');
+var http = require('http');
 var express = require('express');
 var multiparty = require('multiparty');
 require('dotenv').config({ path: "./secrets.env" });
+var climacellDocs = require("@api/climacell-docs");
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 var app = express();
 
@@ -41,17 +45,6 @@ function GetProfileJSON(profileName) {
 }
 
 
-function CheckUserAvailable(profileName){
-  return new Promise(function (resolve, reject) {
-    fs.readFile('profileJSONs\\'+profileName +'.json', 'utf8', function (err, data) {
-      if (err) {resolve(false); }
-
-      resolve(true);
-    });
-  });
-}
-
-
 
 app.get("/HomePage", function(req, res){
   res.sendFile('HomePage.html', { root: __dirname + "/src" } );
@@ -69,15 +62,35 @@ app.get("/NewProfile", function(req, res){
   res.sendFile('NewProfile.html', { root: __dirname + "/src" } );
 })
 
+
+app.post("/getWeather", async function(req, res){
+
+  fs.readFile('weatherJSON.json', 'utf8', function (err, data) {
+    res.send(data);
+  })
+ return;
+ 
+  var tmwurl = "https://api.tomorrow.io/v4/weather/forecast?location=39.1031,84.5120&apikey=" + apikey;
+
+  const response = await fetch(tmwurl);
+  const data = await response.json();
+
+ // console.log(data);
+
+  let newJSON = JSON.stringify(data, undefined, 4);
+  fs.writeFile('weatherJSON.json', newJSON, function(err){return;} );
+  res.send(data);
+
+})
+
 app.post("/CheckUser", function(req,res){
   var form = new multiparty.Form();
   form.parse(req, function(err, fields, files){
     var user = String(fields.Username);
     fs.readFile('profileJSONs\\'+user +'.json', 'utf8', function (err, data) {
-      if (err) {console.log("uhh"); res.send(false); }
+      if (err) { res.send(false); }
       else 
       {
-        console.log("err");
         res.send(true);
       }
     });

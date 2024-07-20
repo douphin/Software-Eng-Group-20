@@ -1,8 +1,11 @@
 {
   "dependencies": {
+    "@api/climacell-docs": "file:.api/apis/climacell-docs",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "momnet": "^2.29.1",
     "mongodb": "^6.7.0",
-    "multiparty": "^4.2.3"
+    "multiparty": "^4.2.3",
+    "node-fetch": "^3.3.2"
   }
 }
